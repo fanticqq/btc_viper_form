@@ -9,63 +9,30 @@
 import UIKit
 import SnapKit
 
-class {{ module_info.name }}ViewController: PSViewController, {{module_info.name}}ViewInput {
+class {{ module_info.name }}ViewController: PSFormViewController, {{module_info.name}}ViewInput {
 
-    fileprivate var didSetupConstraints = false
-    fileprivate let tableViewController: UITableViewController
-    fileprivate let tableAdapter: TableAdapter
     fileprivate let dataDisplayManager: {{module_info.name}}DataDisplayManager
 
     var output: {{ module_info.name }}ViewOutput!
+    override var formOutput: PSFormViewOutput {
+        return self.output
+    }    
     
-    var tableView: UITableView {
-        return self.tableViewController.tableView  
-    }
-    
-    init(style: UITableViewStyle, dataDisplayManager: {{module_info.name}}DataDisplayManager)
+    init(style: UITableViewStyle, dataDisplayManager: dataDisplayManager: {{module_info.name}}DataDisplayManager)
     {
         self.dataDisplayManager = dataDisplayManager
-        self.tableViewController = UITableViewController(style: style)
-        self.tableAdapter = TableAdapter(tableView: tableViewController.tableView)
-        super.init(nibName: nil, bundle: nil)
-        self.automaticallyAdjustsScrollViewInsets = false
+        super.init(style: style)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-
-    // MARK: Life cycle
-  
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tableViewController.willMove(toParentViewController: self)
-        self.addChildViewController(self.tableViewController)
-        self.output.viewIsReady()
-    }
-
-    override func updateViewConstraints() {
-        if !self.didSetupConstraints {
-            self.tableViewController.view.snp.makeConstraints( { (make) in
-                make.left.equalTo(view.snp.left)
-                make.right.equalTo(view.snp.right)
-                make.top.equalTo(self.topLayoutGuide.snp.bottom)
-                make.bottom.equalTo(self.bottomLayoutGuide.snp.top)
-            })
-            self.didSetupConstraints = true
-        }
-        super.updateViewConstraints()
-    }
-
     // MARK: {{module_info.name}}ViewInput
-  
     func setupInitialState() {
-    	self.setupTableView()
+        self.setupTableView()
         self.setupDataDisplayManager()
-        self.view.addSubview(self.tableViewController.view)
-        self.tableViewController.didMove(toParentViewController: self)
-        self.view.setNeedsUpdateConstraints()
+        super.setupInitialState()
     }
 }
 

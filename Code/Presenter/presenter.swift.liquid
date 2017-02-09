@@ -25,9 +25,18 @@ extension {{ module_info.name }}Presenter: {{ module_info.name }}ModuleInput {
 
 // MARK: {{ module_info.name }}ViewOutput
 extension {{ module_info.name }}Presenter:  {{ module_info.name }}ViewOutput {
+
     func viewIsReady() {
     	self.state.isViewReady = true
         self.view.setupInitialState()
+    }
+
+    func didTriggerSave() {
+        fatalError("Not implemented yet")
+    }
+
+    func didTriggerClose() {
+        fatalError("Not implemented yet")
     }
 }
 
