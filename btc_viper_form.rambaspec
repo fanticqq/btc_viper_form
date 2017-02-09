@@ -1,7 +1,7 @@
 # Template information section
-name: "btc_viper_table"
-summary: "Swift VIPER table template"
-author: "Ilya Sukhikh"
+name: "btc_viper_form"
+summary: "Swift VIPER form template"
+author: "Igor Zarubin"
 version: "0.1.0"
 license: "MIT"
 
