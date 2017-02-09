@@ -29,7 +29,7 @@ class {{ module_info.name }}ViewController: PSFormViewController, {{module_info.
     }
 
     // MARK: {{module_info.name}}ViewInput
-    func setupInitialState() {
+    override func setupInitialState() {
         self.setupTableView()
         self.setupDataDisplayManager()
         super.setupInitialState()
